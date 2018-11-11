@@ -7,7 +7,7 @@ build:
 	        docker build . -t ibgw
 
 tag:
-	        docker tag ibrest gcr.io/quantonomy-123456/ibgw:latest
+	        docker tag ibgw gcr.io/quantonomy-123456/ibgw:latest
 
 push:
 	        docker push gcr.io/quantonomy-123456/ibgw:latest
