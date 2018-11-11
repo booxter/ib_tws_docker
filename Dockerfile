@@ -25,7 +25,7 @@ RUN cd /tmp && \
     chmod +x tws-latest-standalone-linux-x64.sh && \
     echo "n" | ./tws-latest-standalone-linux-x64.sh && \
     rm -rf /tmp/* && \
-    mv /root/Jts/973 /opt/IBJts
+    mv /root/Jts/974 /opt/IBJts
 
 # Set up Virtual Framebuffer and VNC
 ADD vnc_init /etc/init.d/vnc
