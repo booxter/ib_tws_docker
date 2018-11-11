@@ -14,17 +14,18 @@ RUN apt-get update && apt-get install -y \
     xvfb \
     libxrender1 \
     libxtst6 \
-    x11vnc
+    x11vnc \
+    libswt-gtk-3-java
 
 # Download IB Connect and TWS
 RUN cd /tmp && \
-    wget https://github.com/ib-controller/ib-controller/releases/download/2.14.0/IBController-2.14.0.zip && \
-    unzip IBController-2.14.0.zip -d /opt/IBController && \
+    wget https://github.com/ib-controller/ib-controller/releases/download/3.4.0/IBController-3.4.0.zip && \
+    unzip IBController-3.4.0.zip -d /opt/IBController && \
     wget https://download2.interactivebrokers.com/installers/tws/latest-standalone/tws-latest-standalone-linux-x64.sh && \
     chmod +x tws-latest-standalone-linux-x64.sh && \
     echo "n" | ./tws-latest-standalone-linux-x64.sh && \
     rm -rf /tmp/* && \
-    mv /root/Jts/954 /opt/IBJts
+    mv /root/Jts/973 /opt/IBJts
 
 # Set up Virtual Framebuffer and VNC
 ADD vnc_init /etc/init.d/vnc
@@ -35,6 +36,7 @@ ENV DISPLAY :0.0
 # Set up IBConnect
 RUN mkdir -p /opt/IBJts/jars/dhmyhmeut/
 ADD jts.ini /opt/IBJts/jars/
+ADD tws.xml /opt/IBJts/jars/
 ADD tws.xml /opt/IBJts/jars/dhmyhmeut/
 ADD IBController.ini /opt/IBController/
 ADD IBControllerStart.sh /opt/IBController/
@@ -46,5 +48,5 @@ ENV TWSPASSWORD demouser
 ENV VNC_PASSWORD sandwiches
 
 # Start TWS
-EXPOSE 4001 5900
+EXPOSE 4003 5900
 CMD ["/bin/bash", "/opt/IBController/IBControllerStart.sh"]
